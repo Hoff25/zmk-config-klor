@@ -24,3 +24,26 @@
 &right_encoder {
 	status = "okay";
 };
+
+/* --- Underglow on right half too --- */
+&{/} {
+    chosen {
+        zmk,underglow = &led_strip;
+    };
+};
+
+/* --- WS2812 / SK6812 strip driven via SPI --- */
+&spi1 {
+    status = "okay";
+
+    led_strip: ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+        reg = <0>;
+
+        /* CHANGE THIS to the number of LEDs on the RIGHT half */
+        chain-length = <48>;
+
+        spi-max-frequency = <4000000>;
+        color-mapping = <1 0 2>;
+    };
+};
